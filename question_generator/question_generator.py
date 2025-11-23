@@ -19,6 +19,7 @@ from .answer_generator import (
     generate_answers_for_theme,
     generate_answers_for_field
 )
+from .semantic_checker import validate_semantics
 
 
 def generate_question_from_entity(entity: str, category: str, reference_lists: Dict[str, List[str]]) -> Optional[Dict[str, Any]]:
@@ -57,7 +58,7 @@ def generate_question_from_entity(entity: str, category: str, reference_lists: D
         else:
             return None
         
-        return {
+        question_data = {
             'QEN': qen,
             'ACEN': answers['ACEN'],
             'AW1EN': answers['AW1EN'],
@@ -66,6 +67,15 @@ def generate_question_from_entity(entity: str, category: str, reference_lists: D
             'category': category,
             'source_entity': entity
         }
+        
+        # Semantic Validation
+        is_valid, errors = validate_semantics(question_data)
+        if not is_valid:
+            # print(f"Skipping question for {entity}: {errors[0]}") # Optional logging
+            return None
+            
+        return question_data
+        
     except Exception as e:
         print(f"Error generating question for {entity}: {e}")
         return None
@@ -83,7 +93,7 @@ def generate_question_from_theme(theme: str, keywords: List[str], reference_list
         else:
             qen = generate_theme_question(theme, keywords)
         
-        return {
+        question_data = {
             'QEN': qen,
             'ACEN': answers['ACEN'],
             'AW1EN': answers['AW1EN'],
@@ -92,6 +102,14 @@ def generate_question_from_theme(theme: str, keywords: List[str], reference_list
             'category': 'theme',
             'source_theme': theme
         }
+        
+        # Semantic Validation
+        is_valid, errors = validate_semantics(question_data)
+        if not is_valid:
+            return None
+            
+        return question_data
+        
     except Exception as e:
         print(f"Error generating question for theme {theme}: {e}")
         return None
@@ -109,7 +127,7 @@ def generate_question_from_field(field: str, reference_lists: Dict[str, List[str
         else:
             qen = generate_field_question(field)
         
-        return {
+        question_data = {
             'QEN': qen,
             'ACEN': answers['ACEN'],
             'AW1EN': answers['AW1EN'],
@@ -118,6 +136,14 @@ def generate_question_from_field(field: str, reference_lists: Dict[str, List[str
             'category': 'field',
             'source_field': field
         }
+        
+        # Semantic Validation
+        is_valid, errors = validate_semantics(question_data)
+        if not is_valid:
+            return None
+            
+        return question_data
+        
     except Exception as e:
         print(f"Error generating question for field {field}: {e}")
         return None
@@ -126,12 +152,6 @@ def generate_question_from_field(field: str, reference_lists: Dict[str, List[str
 def generate_questions_from_gaps(num_questions: int = 100) -> pd.DataFrame:
     """
     Generate questions from gap analysis results.
-    
-    Args:
-        num_questions: Number of questions to generate
-        
-    Returns:
-        DataFrame with generated questions
     """
     print(f"Loading gap analysis results...")
     gaps = get_prioritized_gaps()
@@ -149,11 +169,19 @@ def generate_questions_from_gaps(num_questions: int = 100) -> pd.DataFrame:
     ]
     
     for category, entities, proportion in entity_priorities:
-        num_to_generate = int(num_questions * proportion)
-        for entity in entities[:num_to_generate]:
+        target_count = int(num_questions * proportion)
+        current_cat_count = 0
+        
+        # Use ALL entities available, not just slice, to handle rejections
+        for entity in entities:
+            if current_cat_count >= target_count:
+                break
+                
             question = generate_question_from_entity(entity, category, reference_lists)
             if question:
                 generated_questions.append(question)
+                current_cat_count += 1
+                
             if len(generated_questions) >= num_questions:
                 break
         if len(generated_questions) >= num_questions:
@@ -163,25 +191,42 @@ def generate_questions_from_gaps(num_questions: int = 100) -> pd.DataFrame:
     if len(generated_questions) < num_questions:
         print("Generating questions from missing themes...")
         remaining = num_questions - len(generated_questions)
-        for theme in gaps['themes'][:remaining]:
+        
+        for theme in gaps['themes']:
+            if len(generated_questions) >= num_questions:
+                break
+                
             # Extract keywords from theme (simplified)
             keywords = theme.split()[:3]
             question = generate_question_from_theme(theme, keywords, reference_lists)
             if question:
                 generated_questions.append(question)
-            if len(generated_questions) >= num_questions:
-                break
     
     # Generate from fields (if we need more)
     if len(generated_questions) < num_questions:
         print("Generating questions from underrepresented fields...")
         remaining = num_questions - len(generated_questions)
-        for field in gaps['fields'][:remaining]:
+        
+        # Cycle through fields if we run out
+        fields = gaps['fields']
+        if not fields:
+            fields = ['Common Sense', 'Domestic Sphere', 'Digital Life'] # Fallback
+            
+        import itertools
+        field_cycle = itertools.cycle(fields)
+        
+        count = 0
+        max_attempts = remaining * 3
+        
+        for field in field_cycle:
+            if len(generated_questions) >= num_questions or count > max_attempts:
+                break
+            
             question = generate_question_from_field(field, reference_lists)
             if question:
                 generated_questions.append(question)
-            if len(generated_questions) >= num_questions:
-                break
+            
+            count += 1
     
     print(f"Generated {len(generated_questions)} questions")
     

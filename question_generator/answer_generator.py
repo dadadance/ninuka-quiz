@@ -4,8 +4,16 @@ import random
 from typing import List, Dict, Any, Optional
 from .gap_loader import load_reference_lists
 
-# Static Knowledge Base for popular entities
-# This ensures generated questions make sense for top priorities
+# =============================================================================
+# STATIC KNOWLEDGE BASE
+# =============================================================================
+# Rationale: The gap analysis dynamically identifies missing entities (e.g., "Drake").
+# However, generating semantic facts (e.g., "Founded OVO Sound") requires external knowledge.
+# Without an LLM/Web API, we use this static dictionary to provide high-quality 
+# facts for the most common "gap" entities found in the analysis.
+#
+# For a production system with infinite variety, replace this with an LLM call.
+# =============================================================================
 KNOWLEDGE_BASE = {
     # Artists
     'Drake': {
