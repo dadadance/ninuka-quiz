@@ -33,7 +33,17 @@ KNOWLEDGE_BASE = {
         'ACEN': 'Taylor Swift',
         'wrong': ['Katy Perry', 'Adele', 'Lady Gaga', 'Rihanna']
     },
-    
+    'Post Malone': {
+        'questions': ["Who sings 'Circles' and 'Rockstar'?", "Which artist has face tattoos and sings 'Sunflower'?"],
+        'ACEN': 'Post Malone',
+        'wrong': ['Travis Scott', 'Lil Uzi Vert', 'Drake', 'Marshmello']
+    },
+    'Billie Eilish': {
+        'questions': ["Who sings 'Bad Guy'?", "Which artist won 5 Grammys at age 18?"],
+        'ACEN': 'Billie Eilish',
+        'wrong': ['Lorde', 'Olivia Rodrigo', 'Halsey', 'Dua Lipa']
+    },
+
     # Movies
     'Avatar': {
         'questions': ["Which movie features blue aliens called Na'vi?", "Highest grossing movie of all time (as of 2023)?"],
@@ -44,6 +54,11 @@ KNOWLEDGE_BASE = {
         'questions': ["In which movie does Iron Man snap his fingers?", "Which movie concludes the Infinity Saga?"],
         'ACEN': 'Avengers: Endgame',
         'wrong': ['Infinity War', 'Civil War', 'Age of Ultron', 'Justice League']
+    },
+    'Titanic': {
+        'questions': ["Which movie features Jack and Rose?", "Which 1997 movie was directed by James Cameron?"],
+        'ACEN': 'Titanic',
+        'wrong': ['The Notebook', 'Avatar', 'Romeo + Juliet', 'Pearl Harbor']
     },
     
     # Brands/Tech
@@ -237,6 +252,11 @@ def generate_answers_for_field(field: str, reference_lists: Dict[str, List[str]]
             'ACEN': '7-9 hours',
             'AW1EN': '2-4 hours',
             'AW2EN': '12-14 hours'
+        },
+        'Somatic/Body': {
+            'ACEN': 'Cortisol',
+            'AW1EN': 'Insulin',
+            'AW2EN': 'Melatonin'
         }
     }
     

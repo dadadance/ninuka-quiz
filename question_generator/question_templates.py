@@ -160,6 +160,9 @@ def generate_field_question(field: str) -> str:
         'Common Sense': [
             "How many hours of sleep should adults get?",
             "What is the freezing point of water?",
+        ],
+        'Somatic/Body': [
+            "Which hormone is associated with stress?",
         ]
     }
     

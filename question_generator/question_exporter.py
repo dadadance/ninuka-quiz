@@ -2,8 +2,9 @@
 
 import pandas as pd
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 import json
+import random
 
 
 def assign_ids(df: pd.DataFrame, start_id: int = 30131) -> pd.DataFrame:
@@ -64,45 +65,86 @@ def assign_category_id(df: pd.DataFrame, category_mapping: Optional[Dict[str, in
     return df
 
 
-def assign_tags(df: pd.DataFrame, tag_mapping: Optional[Dict[str, str]] = None) -> pd.DataFrame:
+def get_tag_definitions() -> pd.DataFrame:
     """
-    Assign tags based on question category.
+    Get definitions of all available tags.
+    
+    Returns:
+        DataFrame with tag definitions
+    """
+    tags_data = [
+        {'TAG_ID': '4', 'TAG_NAME': ':COUNTRY', 'CATEGORY': 'Geography'},
+        {'TAG_ID': '7', 'TAG_NAME': ':COMPANY', 'CATEGORY': 'Business'},
+        {'TAG_ID': '10', 'TAG_NAME': 'ED:HISTORY', 'CATEGORY': 'Education'},
+        {'TAG_ID': '50', 'TAG_NAME': 'EN:MUSIC', 'CATEGORY': 'Entertainment'},
+        {'TAG_ID': '51', 'TAG_NAME': 'EN:MOVIE', 'CATEGORY': 'Entertainment'},
+        {'TAG_ID': '54', 'TAG_NAME': 'EN:Facts', 'CATEGORY': 'General'},
+        {'TAG_ID': '99', 'TAG_NAME': 'NEW:Viral', 'CATEGORY': 'Trends'},
+        {'TAG_ID': '100', 'TAG_NAME': 'NEW:Tech', 'CATEGORY': 'Technology'},
+        {'TAG_ID': '101', 'TAG_NAME': 'NEW:Nostalgia', 'CATEGORY': 'Lifestyle'},
+    ]
+    return pd.DataFrame(tags_data)
+
+
+def assign_tags(df: pd.DataFrame, min_tags: int = 2, max_tags: int = 5) -> pd.DataFrame:
+    """
+    Assign multiple tags to questions.
     
     Args:
         df: DataFrame with questions
-        tag_mapping: Optional mapping of categories to tag IDs
+        min_tags: Minimum number of tags per question
+        max_tags: Maximum number of tags per question
         
     Returns:
-        DataFrame with tags assigned
+        DataFrame with tags assigned (comma separated IDs)
     """
     df = df.copy()
     
-    # Default tag mapping (based on original tag structure)
-    if tag_mapping is None:
-        tag_mapping = {
-            'countries': '4',      # :COUNTRY
-            'artists': '50',        # EN:MUSIC
-            'movies': '51',         # EN:MOVIE
-            'brands': '7',          # :COMPANY
-            'theme': '54',          # EN:Facts
-            'field': '10',          # ED:HISTORY (generic)
-        }
+    # Base mapping for primary tag
+    primary_tag_mapping = {
+        'countries': '4',      # :COUNTRY
+        'artists': '50',        # EN:MUSIC
+        'movies': '51',         # EN:MOVIE
+        'brands': '7',          # :COMPANY
+        'theme': '54',          # EN:Facts
+        'field': '10',          # ED:HISTORY (generic)
+    }
     
-    # Map categories to tags
-    if 'category' in df.columns:
-        df['tags'] = df['category'].map(tag_mapping).fillna('10')
-    else:
-        df['tags'] = '10'  # Default tag
+    # Additional tags pool
+    additional_tags = ['99', '100', '101', '54', '10']
     
+    def generate_tags(row):
+        # Start with primary tag based on category
+        category = row.get('category', 'theme')
+        primary_tag = primary_tag_mapping.get(category, '54')
+        
+        current_tags = {primary_tag}
+        
+        # Determine how many tags to add
+        num_total = random.randint(min_tags, max_tags)
+        
+        # Add random additional tags until we reach count
+        available = [t for t in additional_tags if t != primary_tag]
+        
+        while len(current_tags) < num_total and available:
+            tag = random.choice(available)
+            current_tags.add(tag)
+            available.remove(tag)
+            
+        return ','.join(sorted(list(current_tags)))
+
+    df['tags'] = df.apply(generate_tags, axis=1)
     return df
 
 
-def format_for_excel(df: pd.DataFrame) -> pd.DataFrame:
+def format_for_excel(df: pd.DataFrame, min_tags: int = 2, max_tags: int = 5) -> pd.DataFrame:
     """
     Format DataFrame to match original Excel structure.
     
     Args:
         df: DataFrame with generated questions
+        min_tags: Minimum tags
+        max_tags: Maximum tags
         
     Returns:
         Formatted DataFrame matching original structure
@@ -123,8 +165,9 @@ def format_for_excel(df: pd.DataFrame) -> pd.DataFrame:
     if 'category_id' not in df.columns:
         df = assign_category_id(df)
     
-    if 'tags' not in df.columns:
-        df = assign_tags(df)
+    # Always re-assign tags to ensure multi-tag requirement is met
+    # (Unless tags are already pre-calculated correctly, but here we enforce the new rule)
+    df = assign_tags(df, min_tags, max_tags)
     
     # Select and order columns to match original format
     excel_columns = ['QTYPE', 'QID', 'category_id', 'QEN', 'ACEN', 'AW1EN', 'AW2EN', 'ACID', 'AWID1', 'AWID2', 'tags']
@@ -139,35 +182,43 @@ def format_for_excel(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def export_to_excel(df: pd.DataFrame, output_path: str = "outputs/generated_questions.xlsx", sheet_name: str = "data") -> None:
+def export_to_excel(df: pd.DataFrame, output_path: str = "outputs/generated_questions.xlsx", 
+                   sheet_name: str = "data", min_tags: int = 2, max_tags: int = 5) -> None:
     """
-    Export questions to Excel file matching original format.
+    Export questions to Excel file matching original format with tag sheet.
     
     Args:
         df: DataFrame with questions
         output_path: Output file path
-        sheet_name: Sheet name
+        sheet_name: Sheet name for data
+        min_tags: Min tags per question
+        max_tags: Max tags per question
     """
     # Format for Excel
-    df_formatted = format_for_excel(df)
+    df_formatted = format_for_excel(df, min_tags, max_tags)
     
-    # Create Excel file
+    # Get tag definitions
+    df_tags = get_tag_definitions()
+    
+    # Create Excel file with multiple sheets
     with pd.ExcelWriter(output_path, engine='openpyxl') as writer:
         df_formatted.to_excel(writer, sheet_name=sheet_name, index=False)
+        df_tags.to_excel(writer, sheet_name="tags", index=False)
     
-    print(f"Exported {len(df_formatted)} questions to {output_path}")
+    print(f"Exported {len(df_formatted)} questions to {output_path} (with {len(df_tags)} tags)")
 
 
-def export_to_csv(df: pd.DataFrame, output_path: str = "outputs/generated_questions.csv") -> None:
+def export_to_csv(df: pd.DataFrame, output_path: str = "outputs/generated_questions.csv",
+                 min_tags: int = 2, max_tags: int = 5) -> None:
     """Export questions to CSV file."""
-    df_formatted = format_for_excel(df)
+    df_formatted = format_for_excel(df, min_tags, max_tags)
     df_formatted.to_csv(output_path, index=False)
     print(f"Exported {len(df_formatted)} questions to {output_path}")
 
 
-def export_to_json(df: pd.DataFrame, output_path: str = "outputs/generated_questions.json") -> None:
+def export_to_json(df: pd.DataFrame, output_path: str = "outputs/generated_questions.json",
+                  min_tags: int = 2, max_tags: int = 5) -> None:
     """Export questions to JSON file."""
-    df_formatted = format_for_excel(df)
+    df_formatted = format_for_excel(df, min_tags, max_tags)
     df_formatted.to_json(output_path, orient='records', indent=2)
     print(f"Exported {len(df_formatted)} questions to {output_path}")
-
