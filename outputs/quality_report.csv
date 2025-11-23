@@ -1,0 +1,14 @@
+metric,value,percentage
+total_questions,12909.0,
+qen_complete,12909.0,100.0
+acen_complete,12909.0,100.0
+aw1en_complete,12909.0,100.0
+aw2en_complete,12909.0,100.0
+unique_acen,7156.0,
+unique_aw1en,6804.0,
+unique_aw2en,6984.0,
+duplicate_answers_count,14.0,
+avg_qen_length,42.37043922844527,
+avg_acen_length,10.3319389573166,
+avg_aw1en_length,10.10116972654737,
+avg_aw2en_length,9.939112247269348,

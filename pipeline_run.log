@@ -1,0 +1,77 @@
+Logging initialized. Log file: outputs/pipeline_20251124_005801.log
+======================================================================
+CONTENT GAP ANALYSIS - COMPLETE PIPELINE
+======================================================================
+
+Pipeline started at 2025-11-24 00:58:01
+Output directories created.
+
+======================================================================
+PHASE 1: DATA PREPARATION
+======================================================================
+Loading data from ninouk2.xlsx...
+Loaded 12909 questions and 24 tags
+Cleaning question data...
+Merging tag information...
+Adding character lengths...
+Creating combined text field...
+Data preparation complete. Final dataset: 12909 questions
+✓ Loaded and prepared 12909 questions (took 1.1s)
+
+======================================================================
+PHASE 2: QUALITY ANALYSIS
+======================================================================
+/home/dada/my_projects/ninuka-quiz/gap_analysis/quality_checker.py:120: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  mask = df['QEN'].str.contains(pattern, case=False, na=False, regex=True)
+/home/dada/my_projects/ninuka-quiz/gap_analysis/quality_checker.py:120: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  mask = df['QEN'].str.contains(pattern, case=False, na=False, regex=True)
+Checking character limits...
+Analyzing answer quality...
+Identifying question formats...
+Generating quality report...
+Quality report saved to outputs/quality_report.csv
+Total violations: 138
+Format diversity: 11 different patterns
+✓ Quality analysis complete (took 0.2s)
+
+======================================================================
+PHASE 3: N-GRAM ANALYSIS
+======================================================================
+Extracting n-grams from questions...
+Extracting n-grams from answers...
+Analyzing n-grams by category...
+Exporting n-gram patterns...
+N-gram patterns exported to outputs/ngram_patterns.csv
+✓ N-gram analysis complete (took 24.3s)
+
+======================================================================
+PHASE 4: ENTITY RECOGNITION
+======================================================================
+This phase processes all questions with spaCy NER (may take 5-10 minutes)...
+Loading spaCy model...
+spaCy model 'en_core_web_sm' not found. Please install it:
+python -m spacy download en_core_web_sm
+Error during analysis: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+Full traceback:
+Traceback (most recent call last):
+  File "/home/dada/my_projects/ninuka-quiz/run_gap_analysis.py", line 117, in run_gap_analysis
+    entity_results = analyze_entities(df)
+  File "/home/dada/my_projects/ninuka-quiz/gap_analysis/entity_recognition.py", line 259, in analyze_entities
+    nlp = load_spacy_model()
+  File "/home/dada/my_projects/ninuka-quiz/gap_analysis/entity_recognition.py", line 14, in load_spacy_model
+    nlp = spacy.load("en_core_web_sm")
+  File "/home/dada/my_projects/ninuka-quiz/.venv/lib/python3.13/site-packages/spacy/__init__.py", line 52, in load
+    return util.load_model(
+           ~~~~~~~~~~~~~~~^
+        name,
+        ^^^^^
+    ...<4 lines>...
+        config=config,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/dada/my_projects/ninuka-quiz/.venv/lib/python3.13/site-packages/spacy/util.py", line 531, in load_model
+    raise IOError(Errors.E050.format(name=name))
+OSError: [E050] Can't find model 'en_core_web_sm'. It doesn't seem to be a Python package or a valid path to a data directory.
+Pipeline failed at 2025-11-24 00:58:27
+Check the log file for detailed error information

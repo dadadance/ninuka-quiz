@@ -53,7 +53,9 @@ def extract_all_entities(df: pd.DataFrame, nlp) -> Dict[str, Any]:
     Returns:
         Dictionary with entity analysis
     """
-    print("Extracting entities from questions and answers...")
+    total = len(df)
+    print(f"Extracting entities from {total} questions and answers...")
+    print("This may take several minutes. Progress will be shown every 1000 questions...")
     
     all_entities = defaultdict(lambda: Counter())
     question_entities = defaultdict(lambda: Counter())
@@ -61,6 +63,9 @@ def extract_all_entities(df: pd.DataFrame, nlp) -> Dict[str, Any]:
     
     # Extract from questions
     for idx, row in df.iterrows():
+        if (idx + 1) % 1000 == 0:
+            print(f"  Processed {idx + 1}/{total} questions ({(idx+1)/total*100:.1f}%)...")
+        
         q_entities = extract_entities(row.get('QEN', ''), nlp)
         for ent_type, ent_list in q_entities.items():
             question_entities[ent_type].update(ent_list)
@@ -73,6 +78,8 @@ def extract_all_entities(df: pd.DataFrame, nlp) -> Dict[str, Any]:
                 for ent_type, ent_list in a_entities.items():
                     answer_entities[ent_type].update(ent_list)
                     all_entities[ent_type].update(ent_list)
+    
+    print(f"✓ Completed entity extraction for all {total} questions")
     
     return {
         'all_entities': dict(all_entities),
@@ -249,7 +256,22 @@ def analyze_entities(df: pd.DataFrame) -> Dict[str, Any]:
         Dictionary with all entity analysis results
     """
     print("Loading spaCy model...")
-    nlp = load_spacy_model()
+    try:
+        nlp = load_spacy_model()
+    except Exception as e:
+        print(f"⚠️  Warning: Could not load spaCy model: {e}")
+        print("   Skipping entity recognition. Using reference lists only.")
+        # Return empty structure so pipeline can continue
+        return {
+            'coverage_analysis': {
+                'entity_data': {},
+                'countries': {'missing': [], 'found': [], 'coverage_pct': 0.0},
+                'artists': {'missing': [], 'found': [], 'coverage_pct': 0.0},
+                'movies': {'missing': [], 'found': [], 'coverage_pct': 0.0},
+                'brands': {'missing': [], 'found': [], 'coverage_pct': 0.0}
+            },
+            'report_df': pd.DataFrame()
+        }
     
     coverage_analysis = analyze_entity_coverage(df, nlp)
     

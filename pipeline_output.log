@@ -1,0 +1,5 @@
+nohup: ignoring input
+/home/dada/my_projects/ninuka-quiz/gap_analysis/quality_checker.py:120: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  mask = df['QEN'].str.contains(pattern, case=False, na=False, regex=True)
+/home/dada/my_projects/ninuka-quiz/gap_analysis/quality_checker.py:120: UserWarning: This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+  mask = df['QEN'].str.contains(pattern, case=False, na=False, regex=True)

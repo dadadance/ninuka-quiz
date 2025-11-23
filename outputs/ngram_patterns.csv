@@ -1,0 +1,151 @@
+type,ngram_type,ngram,frequency
+question,bigram,name singer,3350
+question,bigram,singer song,3158
+question,bigram,name song,511
+question,bigram,song listening,500
+question,bigram,movie scene,461
+question,bigram,shown picture,224
+question,bigram,singer video,171
+question,bigram,football player,138
+question,bigram,capital city,133
+question,bigram,world cup,117
+question,bigram,flag belong,114
+question,bigram,country flag,113
+question,bigram,name movie,107
+question,bigram,player picture,92
+question,bigram,name football,91
+question,bigram,logo belong,86
+question,bigram,world war,86
+question,bigram,name actress,82
+question,bigram,brand logo,82
+question,bigram,province license,80
+question,bigram,license plate,80
+question,bigram,plate code,80
+question,bigram,code belong,80
+question,bigram,actress picture,79
+question,bigram,name actor,77
+question,bigram,scene shown,76
+question,bigram,clip scene,75
+question,bigram,tv series,73
+question,bigram,actor picture,72
+question,bigram,champions league,69
+question,bigram,war ii,53
+question,bigram,play role,50
+question,bigram,theme song,48
+question,bigram,football club,47
+question,bigram,artist picture,44
+question,bigram,name artist,43
+question,bigram,country capital,41
+question,bigram,harry potter,37
+question,bigram,greek mythology,36
+question,bigram,name composer,35
+question,bigram,region marked,32
+question,bigram,marked map,32
+question,bigram,shown video,32
+question,bigram,united states,31
+question,bigram,photo taken,30
+question,bigram,rock band,30
+question,bigram,series scene,30
+question,bigram,animation movie,29
+question,bigram,composer melody,29
+question,bigram,academy award,28
+question,trigram,name singer song,3158
+question,trigram,name song listening,499
+question,trigram,name singer video,171
+question,trigram,country flag belong,112
+question,trigram,football player picture,92
+question,trigram,name football player,91
+question,trigram,province license plate,80
+question,trigram,license plate code,80
+question,trigram,plate code belong,80
+question,trigram,name actress picture,77
+question,trigram,name movie scene,76
+question,trigram,scene shown picture,75
+question,trigram,movie scene shown,74
+question,trigram,name actor picture,71
+question,trigram,brand logo belong,58
+question,trigram,world war ii,53
+question,trigram,name artist picture,42
+question,trigram,country capital city,41
+question,trigram,region marked map,32
+question,trigram,tv series scene,30
+question,trigram,name composer melody,29
+question,trigram,name movie theme,28
+question,trigram,movie theme song,28
+question,trigram,animation movie scene,27
+question,trigram,place displayed picture,26
+question,trigram,name fruit shown,24
+question,trigram,fruit shown picture,24
+question,trigram,fifa world cup,24
+question,trigram,name animal shown,23
+question,trigram,series scene picture,23
+question,trigram,car brand logo,23
+question,trigram,brand logo photo,23
+question,trigram,movie depicted image,23
+question,trigram,famous person video,22
+question,trigram,animal shown picture,21
+question,trigram,city photo taken,20
+question,trigram,football club logo,20
+question,trigram,club logo belong,20
+question,trigram,city shown video,20
+question,trigram,name animation movie,19
+question,trigram,world cup final,18
+question,trigram,name city shown,17
+question,trigram,guess name tv,16
+question,trigram,name tv series,16
+question,trigram,tv series theme,16
+question,trigram,series theme song,16
+question,trigram,name singer picture,15
+question,trigram,football club belong,15
+question,trigram,name type dance,15
+question,trigram,movie scene video,15
+answer,bigram,jailhouse rock,72
+answer,bigram,00 00,57
+answer,bigram,miri yusif,54
+answer,bigram,ebru gündeş,50
+answer,bigram,demet akalın,50
+answer,bigram,new york,46
+answer,bigram,hande yener,40
+answer,bigram,murat boz,40
+answer,bigram,emre altuğ,38
+answer,bigram,funda arar,37
+answer,bigram,aygün kazımova,36
+answer,bigram,mustafa ceceli,35
+answer,bigram,gülben ergen,33
+answer,bigram,günay brahimli,33
+answer,bigram,billie jean,32
+answer,bigram,south america,32
+answer,bigram,oğuzhan koç,31
+answer,bigram,hakan altun,31
+answer,bigram,candan erçetin,30
+answer,bigram,one direction,30
+answer,bigram,burcu güneş,30
+answer,bigram,ebru polat,30
+answer,bigram,gökhan türkmen,30
+answer,bigram,ferhat göçer,29
+answer,bigram,sezen aksu,29
+answer,bigram,da vinci,29
+answer,bigram,mack knife,29
+answer,bigram,abbas bağırov,29
+answer,bigram,tuğba yurt,29
+answer,bigram,sam smith,28
+answer,bigram,gökhan özen,28
+answer,bigram,chris brown,28
+answer,bigram,tünzalə ağayeva,28
+answer,bigram,elçin cəfərov,28
+answer,bigram,emre kaya,28
+answer,bigram,mustafa sandal,27
+answer,bigram,deniz seki,27
+answer,bigram,leonardo da,27
+answer,bigram,pulp fiction,27
+answer,bigram,dima bilan,27
+answer,bigram,ramal srafilov,27
+answer,bigram,rem derici,27
+answer,bigram,britney spears,27
+answer,bigram,justin timberlake,27
+answer,bigram,katy perry,26
+answer,bigram,taylor swift,26
+answer,bigram,michael jackson,26
+answer,bigram,sertab erener,26
+answer,bigram,murat dalkılıç,26
+answer,bigram,ebru yaşar,26
