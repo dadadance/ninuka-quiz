@@ -196,6 +196,27 @@ Themes identified through semantic clustering that are not well-covered by exist
 Entities from reference lists that are missing or underrepresented:
 
 
+### Artists
+
+- **Coverage**: 27.4%
+
+- **Missing**: Drake, The Weeknd, Bad Bunny, Ariana Grande, Post Malone, Billie Eilish, Dua Lipa, The Beatles, Eminem, Rihanna
+
+
+### Movies
+
+- **Coverage**: 7.7%
+
+- **Missing**: Avatar, Avengers: Endgame, Titanic, Star Wars: The Force Awakens, Avengers: Infinity War, Spider-Man: No Way Home, Jurassic World, The Lion King, The Avengers, Furious 7
+
+
+### Brands
+
+- **Coverage**: 37.8%
+
+- **Missing**: Facebook, McDonald's, Intel, General Electric, LG, Nestle, Adidas, Starbucks, Netflix, Tesla
+
+
 
 ## 3. Underrepresented Social Fields
 

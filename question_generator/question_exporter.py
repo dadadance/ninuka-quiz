@@ -2,7 +2,7 @@
 
 import pandas as pd
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
 import json
 
 

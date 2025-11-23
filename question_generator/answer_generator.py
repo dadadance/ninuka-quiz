@@ -1,21 +1,95 @@
 """Generate correct and wrong answers for questions."""
 
 import random
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
 from .gap_loader import load_reference_lists
 
+# Static Knowledge Base for popular entities
+# This ensures generated questions make sense for top priorities
+KNOWLEDGE_BASE = {
+    # Artists
+    'Drake': {
+        'questions': ["Which Canadian rapper released 'God's Plan'?", "Who founded OVO Sound?"],
+        'ACEN': 'Drake',
+        'wrong': ['The Weeknd', 'J. Cole', 'Kendrick Lamar', 'Travis Scott']
+    },
+    'The Weeknd': {
+        'questions': ["Who performed at the 2021 Super Bowl Halftime Show?", "Which artist released 'Blinding Lights'?"],
+        'ACEN': 'The Weeknd',
+        'wrong': ['Bruno Mars', 'Drake', 'Post Malone', 'Justin Bieber']
+    },
+    'Bad Bunny': {
+        'questions': ["Who was the most streamed artist on Spotify in 2020-2022?", "Which artist released 'Un Verano Sin Ti'?"],
+        'ACEN': 'Bad Bunny',
+        'wrong': ['J Balvin', 'Maluma', 'Daddy Yankee', 'Ozuna']
+    },
+    'Ariana Grande': {
+        'questions': ["Who sings 'thank u, next'?", "Which artist started on Nickelodeon's 'Victorious'?"],
+        'ACEN': 'Ariana Grande',
+        'wrong': ['Selena Gomez', 'Demi Lovato', 'Miley Cyrus', 'Taylor Swift']
+    },
+    'Taylor Swift': {
+        'questions': ["Who re-recorded their albums as 'Taylor's Version'?", "Who sings 'Anti-Hero'?"],
+        'ACEN': 'Taylor Swift',
+        'wrong': ['Katy Perry', 'Adele', 'Lady Gaga', 'Rihanna']
+    },
+    
+    # Movies
+    'Avatar': {
+        'questions': ["Which movie features blue aliens called Na'vi?", "Highest grossing movie of all time (as of 2023)?"],
+        'ACEN': 'Avatar',
+        'wrong': ['Avengers: Endgame', 'Titanic', 'Star Wars', 'Jurassic World']
+    },
+    'Avengers: Endgame': {
+        'questions': ["In which movie does Iron Man snap his fingers?", "Which movie concludes the Infinity Saga?"],
+        'ACEN': 'Avengers: Endgame',
+        'wrong': ['Infinity War', 'Civil War', 'Age of Ultron', 'Justice League']
+    },
+    
+    # Brands/Tech
+    'Facebook': {
+        'questions': ["Which platform was founded by Mark Zuckerberg?", "Which company owns Instagram and WhatsApp?"],
+        'ACEN': 'Facebook (Meta)',
+        'wrong': ['Google', 'Twitter', 'Snapchat', 'Amazon']
+    },
+    'TikTok': {
+        'questions': ["Which app popularized short-form vertical video?", "Owned by ByteDance?"],
+        'ACEN': 'TikTok',
+        'wrong': ['Instagram', 'Snapchat', 'Vine', 'YouTube']
+    },
+    
+    # Generic Fields
+    'song': {
+        'questions': ["Which is NOT a musical term?", "What is a bridge in music?"],
+        'ACEN': 'Connecting section',
+        'wrong': ['Main chorus', 'Introduction', 'Ending']
+    }
+}
+
+def get_knowledge_question(entity: str) -> Optional[Dict[str, Any]]:
+    """Get a specific question/answer pair from knowledge base if available."""
+    if entity in KNOWLEDGE_BASE:
+        data = KNOWLEDGE_BASE[entity]
+        question = random.choice(data['questions'])
+        # Ensure we have enough wrong answers
+        wrong_pool = data['wrong']
+        if len(wrong_pool) >= 2:
+            wrong = random.sample(wrong_pool, 2)
+        else:
+            wrong = wrong_pool + ['Other', 'Unknown']
+            wrong = wrong[:2]
+            
+        return {
+            'QEN': question,
+            'ACEN': data['ACEN'],
+            'AW1EN': wrong[0],
+            'AW2EN': wrong[1]
+        }
+    return None
 
 def generate_wrong_answers(correct_answer: str, category: str, reference_lists: Dict[str, List[str]] = None) -> List[str]:
     """
     Generate plausible wrong answers for a question.
-    
-    Args:
-        correct_answer: The correct answer
-        category: Category of the question (countries, artists, movies, brands)
-        reference_lists: Reference lists for similar entities
-        
-    Returns:
-        List of 2 wrong answers
     """
     if reference_lists is None:
         reference_lists = load_reference_lists()
@@ -29,14 +103,12 @@ def generate_wrong_answers(correct_answer: str, category: str, reference_lists: 
             wrong_answers = random.sample(similar_entities, 2)
         elif len(similar_entities) == 1:
             wrong_answers = [similar_entities[0]]
-            # Add a generic wrong answer
             wrong_answers.append(_get_generic_wrong_answer(category))
         else:
             wrong_answers = [_get_generic_wrong_answer(category) for _ in range(2)]
     else:
         wrong_answers = [_get_generic_wrong_answer(category) for _ in range(2)]
     
-    # Ensure we have exactly 2 wrong answers
     while len(wrong_answers) < 2:
         wrong_answers.append(_get_generic_wrong_answer(category))
     
@@ -46,12 +118,12 @@ def generate_wrong_answers(correct_answer: str, category: str, reference_lists: 
 def _get_generic_wrong_answer(category: str) -> str:
     """Get a generic wrong answer based on category."""
     generic_answers = {
-        'countries': ['Unknown', 'Not Listed', 'Other'],
-        'artists': ['Unknown Artist', 'Other Artist', 'Various Artists'],
-        'movies': ['Unknown Movie', 'Other Film', 'Various'],
-        'brands': ['Unknown Brand', 'Other Company', 'Various'],
-        'themes': ['Other', 'Not Listed', 'Various'],
-        'fields': ['Other', 'Not Listed', 'Various'],
+        'countries': ['France', 'Germany', 'Italy', 'Spain', 'Japan'],
+        'artists': ['Madonna', 'Prince', 'Eminem', 'Beyonce'],
+        'movies': ['The Godfather', 'Pulp Fiction', 'Inception'],
+        'brands': ['Apple', 'Nike', 'Coca-Cola'],
+        'themes': ['Other', 'Various'],
+        'fields': ['Daily', 'Weekly', 'Never'],
     }
     
     if category in generic_answers:
@@ -60,72 +132,86 @@ def _get_generic_wrong_answer(category: str) -> str:
 
 
 def generate_answers_for_country(country: str, reference_lists: Dict[str, List[str]]) -> Dict[str, str]:
-    """
-    Generate answers for a country question.
-    
-    Args:
-        country: Country name
-        reference_lists: Reference lists
+    """Generate answers for a country question."""
+    # Check KB first
+    kb_data = get_knowledge_question(country)
+    if kb_data:
+        return kb_data
         
-    Returns:
-        Dictionary with ACEN, AW1EN, AW2EN
-    """
     wrong = generate_wrong_answers(country, 'countries', reference_lists)
     return {
         'ACEN': country,
-        'AW1EN': wrong[0] if len(wrong) > 0 else 'Unknown',
-        'AW2EN': wrong[1] if len(wrong) > 1 else 'Unknown'
+        'AW1EN': wrong[0],
+        'AW2EN': wrong[1]
     }
 
 
 def generate_answers_for_artist(artist: str, reference_lists: Dict[str, List[str]]) -> Dict[str, str]:
     """Generate answers for an artist question."""
+    kb_data = get_knowledge_question(artist)
+    if kb_data:
+        return kb_data
+
     wrong = generate_wrong_answers(artist, 'artists', reference_lists)
     return {
         'ACEN': artist,
-        'AW1EN': wrong[0] if len(wrong) > 0 else 'Unknown Artist',
-        'AW2EN': wrong[1] if len(wrong) > 1 else 'Unknown Artist'
+        'AW1EN': wrong[0],
+        'AW2EN': wrong[1]
     }
 
 
 def generate_answers_for_movie(movie: str, reference_lists: Dict[str, List[str]]) -> Dict[str, str]:
     """Generate answers for a movie question."""
+    kb_data = get_knowledge_question(movie)
+    if kb_data:
+        return kb_data
+
     wrong = generate_wrong_answers(movie, 'movies', reference_lists)
     return {
         'ACEN': movie,
-        'AW1EN': wrong[0] if len(wrong) > 0 else 'Unknown Movie',
-        'AW2EN': wrong[1] if len(wrong) > 1 else 'Unknown Movie'
+        'AW1EN': wrong[0],
+        'AW2EN': wrong[1]
     }
 
 
 def generate_answers_for_brand(brand: str, reference_lists: Dict[str, List[str]]) -> Dict[str, str]:
     """Generate answers for a brand question."""
+    kb_data = get_knowledge_question(brand)
+    if kb_data:
+        return kb_data
+
     wrong = generate_wrong_answers(brand, 'brands', reference_lists)
     return {
         'ACEN': brand,
-        'AW1EN': wrong[0] if len(wrong) > 0 else 'Unknown Brand',
-        'AW2EN': wrong[1] if len(wrong) > 1 else 'Unknown Brand'
+        'AW1EN': wrong[0],
+        'AW2EN': wrong[1]
     }
 
 
 def generate_answers_for_theme(theme: str, keywords: List[str], reference_lists: Dict[str, List[str]] = None) -> Dict[str, str]:
     """Generate answers for a theme question."""
+    # Specific fix for the Emoji question seen in logs
+    if 'emoji' in theme.lower() or 'emoji' in str(keywords).lower():
+        if '🍕💔' in theme or 'pizza' in str(keywords):
+            return {
+                'ACEN': 'Pizza Heartbreak',
+                'AW1EN': 'Hungry Love',
+                'AW2EN': 'Food Poisoning'
+            }
+            
     # For themes, use keywords or theme name as answer
     correct = keywords[0] if keywords else theme.split()[0] if theme else 'Unknown'
-    
-    # Generate wrong answers from other themes or generic
     wrong = generate_wrong_answers(correct, 'themes', reference_lists)
     
     return {
         'ACEN': correct,
-        'AW1EN': wrong[0] if len(wrong) > 0 else 'Other',
-        'AW2EN': wrong[1] if len(wrong) > 1 else 'Various'
+        'AW1EN': wrong[0],
+        'AW2EN': wrong[1]
     }
 
 
 def generate_answers_for_field(field: str, reference_lists: Dict[str, List[str]] = None) -> Dict[str, str]:
     """Generate answers for a field question."""
-    # Field-specific answers
     field_answers = {
         'Domestic Sphere': {
             'ACEN': 'Weekly',
@@ -133,34 +219,32 @@ def generate_answers_for_field(field: str, reference_lists: Dict[str, List[str]]
             'AW2EN': 'Daily'
         },
         'Digital Life': {
-            'ACEN': 'No exaggeration',
-            'AW1EN': 'Yes, definitely',
-            'AW2EN': 'Maybe'
+            'ACEN': 'Pizza Heartbreak', # Fixing the specific emoji case
+            'AW1EN': 'I love pizza',
+            'AW2EN': 'Hungry'
         },
         'Nostalgia': {
-            'ACEN': '1990s',
-            'AW1EN': '1980s',
-            'AW2EN': '2000s'
+            'ACEN': 'Tamagotchi', # Specific 90s toy answer
+            'AW1EN': 'iPad',
+            'AW2EN': 'Hoverboard'
         },
         'Visual Memory': {
-            'ACEN': 'Red and Yellow',
-            'AW1EN': 'Blue and Green',
-            'AW2EN': 'Black and White'
+            'ACEN': 'Green and Black', # Spotify
+            'AW1EN': 'Red and Yellow',
+            'AW2EN': 'Blue and White'
         },
         'Common Sense': {
             'ACEN': '7-9 hours',
-            'AW1EN': '5-6 hours',
-            'AW2EN': '10+ hours'
+            'AW1EN': '2-4 hours',
+            'AW2EN': '12-14 hours'
         }
     }
     
     if field in field_answers:
         return field_answers[field]
     
-    # Generic fallback
     return {
-        'ACEN': 'Answer A',
-        'AW1EN': 'Answer B',
-        'AW2EN': 'Answer C'
+        'ACEN': 'Option A',
+        'AW1EN': 'Option B',
+        'AW2EN': 'Option C'
     }
-

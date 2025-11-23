@@ -1,0 +1,388 @@
+entity_type,entity,frequency,category
+GPE,Germany,163,extracted
+GPE,France,159,extracted
+GPE,Italy,145,extracted
+GPE,Brazil,125,extracted
+GPE,China,115,extracted
+GPE,Spain,109,extracted
+GPE,USA,108,extracted
+GPE,Russia,100,extracted
+GPE,Japan,96,extracted
+GPE,England,96,extracted
+GPE,Argentina,83,extracted
+GPE,Mexico,75,extracted
+GPE,Jailhouse Rock,72,extracted
+GPE,India,68,extracted
+GPE,Australia,66,extracted
+GPE,London,63,extracted
+GPE,Rome,60,extracted
+GPE,Greece,60,extracted
+GPE,Paris,56,extracted
+GPE,Egypt,56,extracted
+ORG,Murat,75,extracted
+ORG,Röya,67,extracted
+ORG,Moldcell,46,extracted
+ORG,Funda,39,extracted
+ORG,Atiye,37,extracted
+ORG,Athena,33,extracted
+ORG,Champions League,31,extracted
+ORG,Tuğba Yurt,29,extracted
+ORG,Apple,28,extracted
+ORG,Britney Spears,27,extracted
+ORG,İrem Derici,27,extracted
+ORG,Christina Aguilera,24,extracted
+ORG,Rings,24,extracted
+ORG,Beyoncé,23,extracted
+ORG,Nazan Öncel,22,extracted
+ORG,Barış Manço,22,extracted
+ORG,Hakan Peker,21,extracted
+ORG,Talıb Tale,20,extracted
+ORG,Reservoir Dogs,20,extracted
+ORG,Sinan Akçıl,19,extracted
+PERSON,Miri Yusif,54,extracted
+PERSON,Oscar,48,extracted
+PERSON,Zeus,43,extracted
+PERSON,Emre Altuğ,38,extracted
+PERSON,Harry Potter,38,extracted
+PERSON,Kazımova,36,extracted
+PERSON,Mustafa Ceceli,35,extracted
+PERSON,Bengü,34,extracted
+PERSON,Gülben Ergen,33,extracted
+PERSON,Günay İbrahimli,33,extracted
+PERSON,Emrah,31,extracted
+PERSON,Oğuzhan Koç,31,extracted
+PERSON,Hakan Altun,31,extracted
+PERSON,Tarkan,31,extracted
+PERSON,Candan Erçetin,30,extracted
+PERSON,Burcu Güneş,30,extracted
+PERSON,Xatun,30,extracted
+PERSON,Bendeniz,30,extracted
+PERSON,Zamiq,30,extracted
+PERSON,Sezen Aksu,29,extracted
+WORK_OF_ART,Love,42,extracted
+WORK_OF_ART,Picasso,10,extracted
+WORK_OF_ART,Bible,8,extracted
+WORK_OF_ART,This Love,7,extracted
+WORK_OF_ART,Oscar,7,extracted
+WORK_OF_ART,Terminator,6,extracted
+WORK_OF_ART,Hamlet,6,extracted
+WORK_OF_ART,Thriller,5,extracted
+WORK_OF_ART,The Jungle Book,5,extracted
+WORK_OF_ART,Batman,4,extracted
+WORK_OF_ART,Wimbledon,4,extracted
+WORK_OF_ART,Nobel,3,extracted
+WORK_OF_ART,The Picture of Dorian Gray,3,extracted
+WORK_OF_ART,Nobel Prize,3,extracted
+WORK_OF_ART,Friends,3,extracted
+WORK_OF_ART,Pulp Fiction,3,extracted
+WORK_OF_ART,Close Encounters of the Third Kind,3,extracted
+WORK_OF_ART,Selena,2,extracted
+WORK_OF_ART,The Godfather,2,extracted
+WORK_OF_ART,The Lord of the Rings,2,extracted
+FAC,Jurassic Park,12,extracted
+FAC,Linkin Park,10,extracted
+FAC,Vatican,6,extracted
+FAC,the Great Wall of China,6,extracted
+FAC,Heartache,4,extracted
+FAC,Sphinx,4,extracted
+FAC,Paris Saint-Germain,3,extracted
+FAC,Galata Tower,3,extracted
+FAC,The Great Wall of China,3,extracted
+FAC,the Statue of Liberty,3,extracted
+FAC,Pearl Harbor,3,extracted
+FAC,Panama Canal,2,extracted
+FAC,Hotel Rwanda,2,extracted
+FAC,the Great Barrier Reef,2,extracted
+FAC,Paata Guliashvili,2,extracted
+FAC,Google Drive,2,extracted
+FAC,Venus,2,extracted
+FAC,Grand Slam,2,extracted
+FAC,the Statue of Zeus,2,extracted
+FAC,Shutter Island,2,extracted
+NORP,Greek,104,extracted
+NORP,American,49,extracted
+NORP,French,41,extracted
+NORP,Roman,36,extracted
+NORP,Italian,33,extracted
+NORP,German,33,extracted
+NORP,British,31,extracted
+NORP,Spanish,31,extracted
+NORP,European,31,extracted
+NORP,Japanese,28,extracted
+NORP,Russian,26,extracted
+NORP,Özcan,25,extracted
+NORP,Motans,22,extracted
+NORP,Indian,18,extracted
+NORP,Portuguese,17,extracted
+NORP,european,16,extracted
+NORP,Jasmin,14,extracted
+NORP,Chinese,14,extracted
+NORP,Yolka,14,extracted
+NORP,English,13,extracted
+LOC,Europe,73,extracted
+LOC,Africa,67,extracted
+LOC,Asia,61,extracted
+LOC,South America,42,extracted
+LOC,Earth,35,extracted
+LOC,Mars,25,extracted
+LOC,North America,21,extracted
+LOC,Caribbean,18,extracted
+LOC,Marina,18,extracted
+LOC,Jupiter,16,extracted
+LOC,Atlantic,13,extracted
+LOC,Sun,11,extracted
+LOC,Mediterranean,10,extracted
+LOC,Antarctica,8,extracted
+LOC,Central America,8,extracted
+LOC,Mount Everest,7,extracted
+LOC,Marina Strelnikova,7,extracted
+LOC,Arctic,6,extracted
+LOC,Black Sea,6,extracted
+LOC,the Middle Ages,5,extracted
+MONEY,50 Cent,11,extracted
+MONEY,222#,3,extracted
+MONEY,444#,2,extracted
+MONEY,555#,2,extracted
+MONEY,a few dollars,1,extracted
+MONEY,$ 75 million,1,extracted
+MONEY,1 million dollars,1,extracted
+MONEY,over $4 trillion,1,extracted
+MONEY,over $7 trillion,1,extracted
+MONEY,$18 trillion,1,extracted
+MONEY,three World Cup,1,extracted
+MONEY,$ 900 million,1,extracted
+MONEY,more than a billion dollars,1,extracted
+MONEY,666.66,1,extracted
+MONEY,$400 million,1,extracted
+MONEY,$ 19 billion,1,extracted
+MONEY,$1.65 Billion,1,extracted
+MONEY,$15 Million,1,extracted
+MONEY,$8 Million,1,extracted
+MONEY,$10 Million,1,extracted
+CARDINAL,5,95,extracted
+CARDINAL,2,77,extracted
+CARDINAL,1,76,extracted
+CARDINAL,3,76,extracted
+CARDINAL,4,69,extracted
+CARDINAL,two,62,extracted
+CARDINAL,One,53,extracted
+CARDINAL,one,48,extracted
+CARDINAL,7,46,extracted
+CARDINAL,6,43,extracted
+CARDINAL,10,40,extracted
+CARDINAL,12,35,extracted
+CARDINAL,8,31,extracted
+CARDINAL,three,31,extracted
+CARDINAL,Four,24,extracted
+CARDINAL,কোন,24,extracted
+CARDINAL,15,19,extracted
+CARDINAL,50,18,extracted
+CARDINAL,100,18,extracted
+CARDINAL,five,17,extracted
+PRODUCT,Galileo Galilei,9,extracted
+PRODUCT,Dumbledore,7,extracted
+PRODUCT,Octopus,7,extracted
+PRODUCT,Skyfall,6,extracted
+PRODUCT,Voldemort,6,extracted
+PRODUCT,গানটি,6,extracted
+PRODUCT,Scorpio,5,extracted
+PRODUCT,Neighborhood,5,extracted
+PRODUCT,Galileo,5,extracted
+PRODUCT,Mummy,4,extracted
+PRODUCT,Corsica,4,extracted
+PRODUCT,Turova,4,extracted
+PRODUCT,Child,3,extracted
+PRODUCT,Cafu,3,extracted
+PRODUCT,Magic,3,extracted
+PRODUCT,Atlantis,3,extracted
+PRODUCT,Llama,2,extracted
+PRODUCT,Aqua,2,extracted
+PRODUCT,Şanslıyım,2,extracted
+PRODUCT,Lara,2,extracted
+TIME,Tonight,29,extracted
+TIME,Thirty seconds,6,extracted
+TIME,00:00:00,4,extracted
+TIME,10.3 seconds,2,extracted
+TIME,25th Hour,2,extracted
+TIME,Summer,2,extracted
+TIME,morning,2,extracted
+TIME,24 hours,2,extracted
+TIME,6 hours,2,extracted
+TIME,night,2,extracted
+TIME,J.K.Rowling,1,extracted
+TIME,the afternoon,1,extracted
+TIME,the last second,1,extracted
+TIME,1 hour,1,extracted
+TIME,8 minutes 20 seconds,1,extracted
+TIME,2 hours 20 minutes,1,extracted
+TIME,gram,1,extracted
+TIME,48 minutes,1,extracted
+TIME,tonight,1,extracted
+TIME,Ocimum,1,extracted
+QUANTITY,Five Feet Apart,2,extracted
+QUANTITY,180 degrees,2,extracted
+QUANTITY,Seven Pounds,2,extracted
+QUANTITY,270 degrees,2,extracted
+QUANTITY,8000km,1,extracted
+QUANTITY,12800 km,1,extracted
+QUANTITY,4200 km,1,extracted
+QUANTITY,120000 km,1,extracted
+QUANTITY,40000 km,1,extracted
+QUANTITY,4000 km,1,extracted
+QUANTITY,14000 km,1,extracted
+QUANTITY,150.000.000 km,1,extracted
+QUANTITY,1.500.000.000 km,1,extracted
+QUANTITY,500.000 km,1,extracted
+QUANTITY,384.400 km,1,extracted
+QUANTITY,82.800km,1,extracted
+QUANTITY,1.220.000 km,1,extracted
+QUANTITY,24 km,1,extracted
+QUANTITY,5 km,1,extracted
+QUANTITY,80 km,1,extracted
+DATE,what year,38,extracted
+DATE,2022,31,extracted
+DATE,1999,18,extracted
+DATE,2010,18,extracted
+DATE,1939,16,extracted
+DATE,2006,15,extracted
+DATE,2001,14,extracted
+DATE,2002,13,extracted
+DATE,1961,12,extracted
+DATE,1969,12,extracted
+DATE,1986,12,extracted
+DATE,2000,12,extracted
+DATE,1991,12,extracted
+DATE,2014,11,extracted
+DATE,2018,11,extracted
+DATE,1966,11,extracted
+DATE,2009,10,extracted
+DATE,1982,10,extracted
+DATE,2005,10,extracted
+DATE,Veber,10,extracted
+EVENT,World Cup,64,extracted
+EVENT,World War II,59,extracted
+EVENT,the World Cup,12,extracted
+EVENT,Olympic,10,extracted
+EVENT,World War I,10,extracted
+EVENT,World War,9,extracted
+EVENT,the 2014 World Cup,9,extracted
+EVENT,World War 2,8,extracted
+EVENT,Olympics,7,extracted
+EVENT,WWII,6,extracted
+EVENT,World War Z,5,extracted
+EVENT,FIFA World Cup,5,extracted
+EVENT,the World Cup Finals,5,extracted
+EVENT,the Trojan War,5,extracted
+EVENT,World War 1,4,extracted
+EVENT,World Cups,4,extracted
+EVENT,the First World War,4,extracted
+EVENT,the European Cup,4,extracted
+EVENT,the French Revolution,3,extracted
+EVENT,the Second World War,3,extracted
+ORDINAL,first,311,extracted
+ORDINAL,second,24,extracted
+ORDINAL,First,9,extracted
+ORDINAL,Fifth,6,extracted
+ORDINAL,third,5,extracted
+ORDINAL,3rd,4,extracted
+ORDINAL,5th,2,extracted
+ORDINAL,15th,2,extracted
+ORDINAL,16th,2,extracted
+ORDINAL,Second,2,extracted
+ORDINAL,fourth,2,extracted
+ORDINAL,sixth,2,extracted
+ORDINAL,Sixth,2,extracted
+ORDINAL,18th,2,extracted
+ORDINAL,2nd,1,extracted
+ORDINAL,1st,1,extracted
+ORDINAL,4th,1,extracted
+ORDINAL,24th,1,extracted
+ORDINAL,ninth,1,extracted
+ORDINAL,7th,1,extracted
+LANGUAGE,English,35,extracted
+LANGUAGE,Latin,5,extracted
+LANGUAGE,Spanish,3,extracted
+LANGUAGE,Hebrew,3,extracted
+LANGUAGE,French,2,extracted
+LANGUAGE,Mandarin,2,extracted
+LANGUAGE,Cantonese,2,extracted
+LANGUAGE,Chinese,1,extracted
+LANGUAGE,Arabic,1,extracted
+LANGUAGE,Tintin,1,extracted
+PERCENT,One Republic,13,extracted
+PERCENT,70%,2,extracted
+PERCENT,50%,2,extracted
+PERCENT,60%,1,extracted
+PERCENT,almost 90%,1,extracted
+PERCENT,the 90 percent,1,extracted
+PERCENT,20%,1,extracted
+PERCENT,100%,1,extracted
+PERCENT,5%,1,extracted
+LAW,কার্টুনের,2,extracted
+LAW,The Hunger Games',1,extracted
+LAW,"the ""Manhattan Blonde",1,extracted
+LAW,Rico,1,extracted
+LAW,"the ""Big Four Tour",1,extracted
+LAW,"the ""Miracle of Istanbul",1,extracted
+LAW,the Night’s Watch,1,extracted
+LAW,Joker,1,extracted
+artists,Drake,0,missing
+artists,The Weeknd,0,missing
+artists,Bad Bunny,0,missing
+artists,Ariana Grande,0,missing
+artists,Post Malone,0,missing
+artists,Billie Eilish,0,missing
+artists,Dua Lipa,0,missing
+artists,The Beatles,0,missing
+artists,Eminem,0,missing
+artists,Rihanna,0,missing
+artists,Adele,0,missing
+artists,Coldplay,0,missing
+artists,Imagine Dragons,0,missing
+artists,Kendrick Lamar,0,missing
+artists,Travis Scott,0,missing
+artists,Lil Nas X,0,missing
+artists,Doja Cat,0,missing
+artists,Olivia Rodrigo,0,missing
+artists,BTS,0,missing
+artists,Blackpink,0,missing
+movies,Avatar,0,missing
+movies,Avengers: Endgame,0,missing
+movies,Titanic,0,missing
+movies,Star Wars: The Force Awakens,0,missing
+movies,Avengers: Infinity War,0,missing
+movies,Spider-Man: No Way Home,0,missing
+movies,Jurassic World,0,missing
+movies,The Lion King,0,missing
+movies,The Avengers,0,missing
+movies,Furious 7,0,missing
+movies,Frozen II,0,missing
+movies,Avengers: Age of Ultron,0,missing
+movies,Black Panther,0,missing
+movies,Harry Potter and the Deathly Hallows Part 2,0,missing
+movies,Star Wars: The Last Jedi,0,missing
+movies,Jurassic World: Fallen Kingdom,0,missing
+movies,Incredibles 2,0,missing
+movies,The Fate of the Furious,0,missing
+movies,Iron Man 3,0,missing
+movies,Minions,0,missing
+brands,Facebook,0,missing
+brands,McDonald's,0,missing
+brands,Intel,0,missing
+brands,General Electric,0,missing
+brands,LG,0,missing
+brands,Nestle,0,missing
+brands,Adidas,0,missing
+brands,Starbucks,0,missing
+brands,Netflix,0,missing
+brands,Tesla,0,missing
+brands,Uber,0,missing
+brands,Airbnb,0,missing
+brands,Spotify,0,missing
+brands,Instagram,0,missing
+brands,Twitter,0,missing
+brands,TikTok,0,missing
+brands,LinkedIn,0,missing
+brands,Snapchat,0,missing
+brands,Pinterest,0,missing
+brands,Reddit,0,missing

@@ -1,7 +1,7 @@
 """Validate generated questions against constraints."""
 
 import pandas as pd
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 import re
 
 

@@ -149,11 +149,8 @@ def generate_field_question(field: str) -> str:
         ],
         'Digital Life': [
             "What does this emoji mean: 🍕💔?",
-            "Which app has this icon?",
-            "What does 'no cap' mean?",
         ],
         'Nostalgia': [
-            "What decade was the Walkman popular?",
             "Which toy was popular in the 90s?",
         ],
         'Visual Memory': [

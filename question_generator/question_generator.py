@@ -24,29 +24,36 @@ from .answer_generator import (
 def generate_question_from_entity(entity: str, category: str, reference_lists: Dict[str, List[str]]) -> Optional[Dict[str, Any]]:
     """
     Generate a question from an entity.
-    
-    Args:
-        entity: Entity name (country, artist, movie, brand)
-        category: Category type
-        reference_lists: Reference lists for wrong answers
-        
-    Returns:
-        Dictionary with question data or None if generation fails
     """
     try:
         # Generate question
+        answers = None
+        qen = None
+        
         if category == 'countries':
-            qen = generate_country_question(entity)
             answers = generate_answers_for_country(entity, reference_lists)
+            if 'QEN' in answers:
+                qen = answers['QEN']
+            else:
+                qen = generate_country_question(entity)
         elif category == 'artists':
-            qen = generate_artist_question(entity)
             answers = generate_answers_for_artist(entity, reference_lists)
+            if 'QEN' in answers:
+                qen = answers['QEN']
+            else:
+                qen = generate_artist_question(entity)
         elif category == 'movies':
-            qen = generate_movie_question(entity)
             answers = generate_answers_for_movie(entity, reference_lists)
+            if 'QEN' in answers:
+                qen = answers['QEN']
+            else:
+                qen = generate_movie_question(entity)
         elif category == 'brands':
-            qen = generate_brand_question(entity)
             answers = generate_answers_for_brand(entity, reference_lists)
+            if 'QEN' in answers:
+                qen = answers['QEN']
+            else:
+                qen = generate_brand_question(entity)
         else:
             return None
         
@@ -67,18 +74,14 @@ def generate_question_from_entity(entity: str, category: str, reference_lists: D
 def generate_question_from_theme(theme: str, keywords: List[str], reference_lists: Dict[str, List[str]]) -> Optional[Dict[str, Any]]:
     """
     Generate a question from a theme.
-    
-    Args:
-        theme: Theme name
-        keywords: Keywords associated with theme
-        reference_lists: Reference lists
-        
-    Returns:
-        Dictionary with question data or None
     """
     try:
-        qen = generate_theme_question(theme, keywords)
         answers = generate_answers_for_theme(theme, keywords, reference_lists)
+        
+        if 'QEN' in answers:
+            qen = answers['QEN']
+        else:
+            qen = generate_theme_question(theme, keywords)
         
         return {
             'QEN': qen,
@@ -97,17 +100,14 @@ def generate_question_from_theme(theme: str, keywords: List[str], reference_list
 def generate_question_from_field(field: str, reference_lists: Dict[str, List[str]]) -> Optional[Dict[str, Any]]:
     """
     Generate a question from an underrepresented field.
-    
-    Args:
-        field: Field name
-        reference_lists: Reference lists
-        
-    Returns:
-        Dictionary with question data or None
     """
     try:
-        qen = generate_field_question(field)
         answers = generate_answers_for_field(field, reference_lists)
+        
+        if 'QEN' in answers:
+            qen = answers['QEN']
+        else:
+            qen = generate_field_question(field)
         
         return {
             'QEN': qen,
@@ -191,4 +191,3 @@ def generate_questions_from_gaps(num_questions: int = 100) -> pd.DataFrame:
         return df
     else:
         return pd.DataFrame(columns=['QEN', 'ACEN', 'AW1EN', 'AW2EN', 'QTYPE'])
-
